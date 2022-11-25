@@ -94,7 +94,7 @@ np.load('0.npy')
 DATA_PATH = os.path.join('MP_Data')
 
 # Actions that we try to detect
-actions = np.array(['deposit', 'withdraw'])
+actions = np.array(['deposit', 'where', 'sign'])
 
 # Thirty videos worth of data
 no_sequences = 30
@@ -194,10 +194,11 @@ model.add(Dense(64, activation='relu'))
 model.add(Dense(32, activation='relu'))
 model.add(Dense(actions.shape[0], activation='softmax'))
 model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
-model.fit(X_train, y_train, epochs=70, callbacks=[tb_callback])
+model.fit(X_train, y_train, epochs=80, callbacks=[tb_callback])
 model.summary()
 res = model.predict(X_test)
 #save weights
+#model.save('action.h5')
 model.load_weights('action.h5')
 from scipy import stats
 colors = [(245, 117, 16), (117, 245, 16), (16, 117, 245)]
